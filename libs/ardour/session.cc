@@ -1488,7 +1488,6 @@ Session::hookup_io ()
 			if (a->init()) {
 				throw failed_constructor ();
 			}
-			a->use_new_diskstream ();
 			auditioner = a;
 		}
 
@@ -2565,8 +2564,6 @@ Session::new_midi_track (const ChanCount& input, const ChanCount& output, bool s
 				track->set_strict_io (true);
 			}
 
-			track->use_new_diskstream();
-
 			BOOST_MARK_TRACK (track);
 
 			{
@@ -2587,8 +2584,6 @@ Session::new_midi_track (const ChanCount& input, const ChanCount& output, bool s
 			if (route_group) {
 				route_group->add (track);
 			}
-
-			track->DiskstreamChanged.connect_same_thread (*this, boost::bind (&Session::resort_routes, this));
 
 			new_routes.push_back (track);
 			ret.push_back (track);
@@ -3162,8 +3157,6 @@ Session::new_audio_track (int input_channels, int output_channels, RouteGroup* r
 				}
 			}
 
-			track->use_new_diskstream();
-
 			BOOST_MARK_TRACK (track);
 
 			{
@@ -3191,8 +3184,6 @@ Session::new_audio_track (int input_channels, int output_channels, RouteGroup* r
 			}
 
 			track->non_realtime_input_change();
-
-			track->DiskstreamChanged.connect_same_thread (*this, boost::bind (&Session::resort_routes, this));
 
 			new_routes.push_back (track);
 			ret.push_back (track);
