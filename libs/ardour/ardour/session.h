@@ -1451,7 +1451,6 @@ class LIBARDOUR_API Session : public PBD::StatefulDestructible, public PBD::Scop
 			PostTransportReverse|
 			PostTransportCurveRealloc|
 			PostTransportAudition|
-			PostTransportLocate|
 			PostTransportStop|
 			PostTransportClearSubstate);
 
