@@ -180,6 +180,8 @@ Session::process_routes (pframes_t nframes, bool& need_butler)
 	const framepos_t start_frame = _transport_frame;
 	const framepos_t end_frame = _transport_frame + floor (nframes * _transport_speed);
 
+	_global_locate_pending = locate_pending ();
+
 	if (_process_graph) {
 		DEBUG_TRACE(DEBUG::ProcessThreads,"calling graph/process-routes\n");
 		if (_process_graph->process_routes (nframes, start_frame, end_frame, declick, need_butler) < 0) {
@@ -225,6 +227,8 @@ Session::silent_process_routes (pframes_t nframes, bool& need_butler)
 
 	const framepos_t start_frame = _transport_frame;
 	const framepos_t end_frame = _transport_frame + lrintf(nframes * _transport_speed);
+
+	_global_locate_pending = locate_pending();
 
 	if (_process_graph) {
 		_process_graph->silent_process_routes (nframes, start_frame, end_frame, need_butler);
